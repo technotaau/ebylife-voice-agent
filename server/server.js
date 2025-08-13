@@ -11,8 +11,14 @@ console.log('4. App created');
 // CORS configuration
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://ebylife-ai.vercel.app', 'https://ebylife.com'] 
-    : 'http://localhost:3000',
+    ? [
+        'https://ebylife-ai.vercel.app', 
+        'https://ebylife.com',
+        'https://client-bsexd1hr7-technotaaus-projects.vercel.app',
+        'https://client-pguxcica4-technotaaus-projects.vercel.app',
+        /https:\/\/client-.*-technotaaus-projects\.vercel\.app$/ // Allow all preview deployments
+      ] 
+    : ['http://localhost:3000', 'http://localhost:3001'],
   credentials: true,
 };
 
@@ -33,6 +39,19 @@ try {
   console.error('Error loading chat route:', error);
 }
  app.use('/api/voice', require('./routes/voice')); // TODO: Implement voice route
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'EbyLife Voice Agent API',
+    status: 'Running',
+    endpoints: {
+      health: '/api/health',
+      chat: 'POST /api/chat/message',
+      voice: 'POST /api/voice (coming soon)'
+    }
+  });
+});
 
 // Health check
 app.get('/api/health', (req, res) => {
