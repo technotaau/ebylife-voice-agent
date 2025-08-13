@@ -16,7 +16,8 @@ const corsOptions = {
         'https://ebylife.com',
         'https://client-bsexd1hr7-technotaaus-projects.vercel.app',
         'https://client-pguxcica4-technotaaus-projects.vercel.app',
-        /https:\/\/client-.*-technotaaus-projects\.vercel\.app$/ // Allow all preview deployments
+        /https:\/\/.*\.vercel\.app$/, // Allow all Vercel deployments
+        /https:\/\/.*-technotaaus-projects\.vercel\.app$/ // Allow all preview deployments
       ] 
     : ['http://localhost:3000', 'http://localhost:3001'],
   credentials: true,
